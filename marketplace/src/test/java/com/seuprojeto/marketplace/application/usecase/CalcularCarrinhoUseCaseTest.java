@@ -29,7 +29,6 @@ class CalcularCarrinhoUseCaseTest {
         );
 
         var result = useCase.executar(input);
-
         assertEquals(0, result.getSubtotal().compareTo(new BigDecimal("50")));
         assertEquals(0, result.getDesconto().compareTo(new BigDecimal("1.50")));
         assertEquals(0, result.getTotal().compareTo(new BigDecimal("48.50")));
