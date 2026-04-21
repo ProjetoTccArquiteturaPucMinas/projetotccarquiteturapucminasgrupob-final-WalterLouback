@@ -1,0 +1,35 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: marketplace
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      - name: Build + Testes Unitários
+        run: mvn clean install
+
+      - name: Executar Testes Unitários
+        run: mvn test
+
+      - name: Executar Testes de Arquitetura
+        run: mvn test -Dtest=ArchitectureTest
